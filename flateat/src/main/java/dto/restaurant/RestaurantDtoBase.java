@@ -14,4 +14,5 @@ public abstract class RestaurantDtoBase
     private int openingH;
     private int closingH;
     private String imgUrl;
+    
 }
