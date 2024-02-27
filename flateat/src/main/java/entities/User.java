@@ -38,5 +38,5 @@ public class User
 
     @JsonIgnore
     @OneToMany(mappedBy = "",cascade = CascadeType.REMOVE,fetch = FetchType.EAGER)
-    private List<Delivery> questions;
+    private Set<Delivery> questions;
 }
