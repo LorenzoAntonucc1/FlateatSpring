@@ -1,4 +1,8 @@
 package entities;
+import java.util.List;
+
+import org.hibernate.mapping.Set;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
@@ -23,9 +27,20 @@ public class Restaurant
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    private String name;
     private String phone;
     private int openingHour;
     private int closingHour;
     private int positionX;
     private int positionY;
+    private List <String> foodTypes;
+    private double deliveryPricePerUnit;
+    private int maxDeliveryDistance;
+    private String imgUrl;
+    private Set<Delivery> deliveries;
+
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "menu_id")
+    private Menu menu;
 }
