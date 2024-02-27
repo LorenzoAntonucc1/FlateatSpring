@@ -1,7 +1,6 @@
 package entities;
 import java.util.List;
-
-import org.hibernate.mapping.Set;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -37,7 +36,8 @@ public class Restaurant
     private double deliveryPricePerUnit;
     private int maxDeliveryDistance;
     private String imgUrl;
-    private Set<Delivery> deliveries;
+    
+    
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
