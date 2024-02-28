@@ -6,14 +6,14 @@ import entities.User;
 
 public class UserConverter {
 
-    public static UserDtoBase convertToDtoBase(User user) {
+    public UserDtoBase convertToDtoBase(User user) {
         return UserDtoBase.builder()
                 .email(user.getEmail())
                 .password(user.getPassword())
                 .build();
     }
 
-    public static UserDtoW convertToDtoW(User user) {
+    public UserDtoW convertToDtoW(User user) {
         return UserDtoW.builder()
                 .email(user.getEmail())
                 .password(user.getPassword())
@@ -22,7 +22,7 @@ public class UserConverter {
                 .build();
     }
 
-    public static User convertToEntity(UserDtoBase userDto) {
+    public User convertToEntity(UserDtoBase userDto) {
         User user = new User();
         user.setEmail(userDto.getEmail());
         user.setPassword(userDto.getPassword());
@@ -30,7 +30,7 @@ public class UserConverter {
         return user;
     }
 
-    public static User convertToEntity(UserDtoW userDto) {
+    public User convertToEntity(UserDtoW userDto) {
         User user = new User();
         user.setEmail(userDto.getEmail());
         user.setPassword(userDto.getPassword());
