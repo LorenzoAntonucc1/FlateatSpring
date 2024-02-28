@@ -4,6 +4,7 @@ import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -32,7 +33,7 @@ public class Menu
     private Integer id;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "menu", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "menu",cascade = CascadeType.REMOVE,fetch = FetchType.EAGER)
     private Set<Dish> dishes;
 
     @JsonIgnore

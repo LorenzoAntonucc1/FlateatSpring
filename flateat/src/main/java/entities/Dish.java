@@ -1,6 +1,5 @@
 package entities;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -48,7 +47,7 @@ public class Dish
     private List <String> ingredients;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "dish",cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "dish",cascade = CascadeType.REMOVE,fetch = FetchType.EAGER)
     private Set<DishToDelivery> deliveries;
 
     @JsonIgnore
