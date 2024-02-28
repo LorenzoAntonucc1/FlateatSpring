@@ -12,6 +12,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 public class DishDtoWFull extends DishDtoBase 
 {
+    private Integer id;
     private String category;
     private List <String> ingredients;
 }
