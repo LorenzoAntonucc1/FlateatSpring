@@ -3,20 +3,25 @@ package dto.restaurant;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public class RestaurantDtoWsec extends RestaurantDtoBase
+public class RestaurantDtoWFull extends RestaurantDtoBase
 {
     private Integer id;
-    private String name;
     private boolean isOpen;
     private List<String> foodTypes;
-    private int distanza;
-
+    private int distance;
+    private int maxDeliveryDistance;
+    private double deliveryPricePerUnit;
+    private String phone;
+    private int openingH;
+    private int closingH;
 }

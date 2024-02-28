@@ -7,10 +7,13 @@ import lombok.experimental.SuperBuilder;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @SuperBuilder
-public class UserDtoR extends UserDtoBase
+@AllArgsConstructor
+public class UserDtoRregister extends UserDtoBase
 {
-    public UserDtoR(){};
+    public UserDtoRregister(){};
     private Integer id;
+    private String phone;
+    private int positionX;
+    private int positionY;
 }

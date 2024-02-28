@@ -1,18 +1,20 @@
 package dto.User;
+
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
-@Data
+
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
 
-public class UserDtoBase 
+public abstract class UserDtoBase 
 {
-
-    private String email;
+    private String mail;
     private String password;
-    
 }

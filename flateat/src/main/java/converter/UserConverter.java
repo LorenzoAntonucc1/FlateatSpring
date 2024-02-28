@@ -1,43 +1,65 @@
 package converter;
 
-import dto.User.UserDtoBase;
-import dto.User.UserDtoW;
+import org.springframework.stereotype.Service;
+
+import dto.User.UserDtoR;
+import dto.User.UserDtoRregister;
+import dto.User.UserDtoWFull;
+import dto.User.UserDtoWNoDeliveries;
 import entities.User;
 
-public class UserConverter {
+@Service
+public class UserConverter 
+{
 
-    public UserDtoBase convertToDtoBase(User user) {
-        return UserDtoBase.builder()
-                .email(user.getEmail())
-                .password(user.getPassword())
+    public User DtoRToUser (UserDtoR dto)
+    {
+        return  User
+                .builder()
+                .mail(dto.getMail())
+                .password(dto.getPassword())
+                .id(dto.getId())
+                .build();
+    }
+    
+    public User DtoRregisterToUser (UserDtoRregister dto)
+    {
+        return  User
+                .builder()
+                .mail(dto.getMail())
+                .password(dto.getPassword())
+                .phone(dto.getPhone())
+                .positionX(dto.getPositionX())
+                .positionY(dto.getPositionY())
+                .id(dto.getId())
                 .build();
     }
 
-    public UserDtoW convertToDtoW(User user) {
-        return UserDtoW.builder()
-                .email(user.getEmail())
+    public UserDtoWNoDeliveries userToDtoWNoDeliveries (User user) 
+    {
+        return  UserDtoWNoDeliveries
+                .builder()
+                .id(user.getId())
+                .mail(user.getMail())
                 .password(user.getPassword())
                 .phone(user.getPhone())
-                .deliveries(user.getDeliveries())
+                .positionX(user.getPositionX())
+                .positionY(user.getPositionY())
                 .build();
     }
 
-    public User convertToEntity(UserDtoBase userDto) {
-        User user = new User();
-        user.setEmail(userDto.getEmail());
-        user.setPassword(userDto.getPassword());
-       
-        return user;
-    }
-
-    public User convertToEntity(UserDtoW userDto) {
-        User user = new User();
-        user.setEmail(userDto.getEmail());
-        user.setPassword(userDto.getPassword());
-        user.setPhone(userDto.getPhone());
-        user.setDeliveries(userDto.getDeliveries());
-        
-        return user;
+    public UserDtoWFull userToDtoWFull (User user) 
+    {
+        return  UserDtoWFull
+                .builder()
+                .id(user.getId())
+                .mail(user.getMail())
+                .password(user.getPassword())
+                .phone(user.getPhone())
+                .positionX(user.getPositionX())
+                .positionY(user.getPositionY())
+                .deliveries(user.getDeliveries())
+                .build();
     }
 }
 

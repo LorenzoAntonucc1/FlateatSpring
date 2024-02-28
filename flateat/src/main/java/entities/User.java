@@ -1,9 +1,6 @@
 package entities;
 
-import java.util.List;
-
 import java.util.Set;
-
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -16,10 +13,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -29,7 +28,7 @@ public class User
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String email;
+    private String mail;
     private String password;
     private String phone;
     private int positionX;

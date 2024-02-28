@@ -2,9 +2,9 @@
 package controller;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,7 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import converter.UserConverter;
-import dto.User.UserDtoW;
+import dto.User.UserDtoR;
+import dto.User.UserDtoRregister;
+import dto.User.UserDtoWFull;
+import dto.User.UserDtoWNoDeliveries;
 import entities.User;
 import repository.UserRepository;
 
@@ -30,12 +33,14 @@ public class UserController
     UserConverter conv;
 
     @GetMapping
-    public List<UserDtoW> getAllUsers() {
-        return repo.findAll()
+    public List<UserDtoWNoDeliveries> getAllUsers() 
+    {
+        return  repo.findAll()
                 .stream()
-                .map(e -> conv.convertToDtoW(e))
-                .collect(Collectors.toList());
+                .map(e -> conv.userToDtoWNoDeliveries(e))
+                .toList();
     }
+
 
     // @GetMapping("/search")
     // public List<UserDtoW> searchUsersByEmailAndPhone(@RequestParam String partialEmail, @RequestParam String phone) {
@@ -63,31 +68,45 @@ public class UserController
     // }
 
     @GetMapping("/login")
-    public UserDtoW getLogged(@RequestBody String email, @RequestBody String password) 
+    public UserDtoWFull getLogged(@RequestBody String email, @RequestBody String password) 
     {
         List<User> allUsers = repo.findAll();
         for(User u : allUsers)
-        if(u.getEmail().equals(email) && u.getPassword().equals(password))
-            return conv.convertToDtoW(repo.findById(u.getId()).orElse(null));
+            if(u.getMail().equals(email) && u.getPassword().equals(password))
+                return conv.userToDtoWFull(repo.findById(u.getId()).orElse(null));
 
         return null;
     }
 
     @PostMapping("/register")
-    public UserDtoW addUser(@RequestBody UserDtoW userDto) {
-        User user = conv.convertToEntity(userDto);
-        return conv.convertToDtoW(repo.save(user));
+    public UserDtoWNoDeliveries addUser(@RequestBody UserDtoRregister u) 
+    {
+        User user = conv.DtoRregisterToUser(u);
+        return conv.userToDtoWNoDeliveries(repo.save(user));
     }
 
     @PutMapping("/{id}")
-    public UserDtoW updateUser(@PathVariable Integer id, @RequestBody UserDtoW userDto) {
-        User existingUser = repo.findById(id).orElse(null);
-        if (existingUser != null) {
-            User updatedUser = conv.convertToEntity(userDto);
-            updatedUser.setId(id);
-            return conv.convertToDtoW(repo.save(updatedUser));
-        }
-        return null;
+    public UserDtoWFull updateUser(@PathVariable Integer id, @RequestBody UserDtoR userDto) 
+    {
+        User u = conv.DtoRToUser(userDto);
+
+        u.setId(id);
+
+        return conv.userToDtoWFull(repo.save(u));
+        // User existingUser = repo.findById(id).orElse(null);
+        // if (existingUser != null) 
+        // {
+        //     User updatedUser = conv.convertToEntity(userDto);
+        //     updatedUser.setId(id);
+        //     return conv.convertToDtoW(repo.save(updatedUser));
+        // }
+        // return null;
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteUser(@PathVariable Integer id)
+    {
+        repo.deleteById(id);
     }
 }
 

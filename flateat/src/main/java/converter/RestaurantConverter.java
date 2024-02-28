@@ -2,31 +2,40 @@ package converter;
 
 import java.time.LocalTime;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import dto.restaurant.RestaurantDtoWsec;
+import dto.restaurant.RestaurantDtoR;
+import dto.restaurant.RestaurantDtoWAlone;
+import dto.restaurant.RestaurantDtoWFull;
 import entities.Restaurant;
 import entities.User;
+import repository.UserRepository;
 
 @Service
 public class RestaurantConverter 
 {
-    public Restaurant dtoToRestaurant (RestaurantDtoWsec dto)
+    @Autowired
+    UserRepository repo;
+    public Restaurant dtoToRestaurant (RestaurantDtoR dto)
     {
-        return Restaurant
+        return  Restaurant
                 .builder()
                 .name(dto.getName())
-                .foodTypes(dto.getFoodTypes())
+                .phone(dto.getPhone())
                 .openingHour(dto.getOpeningH())
                 .closingHour(dto.getClosingH())
                 .imgUrl(dto.getImgUrl())
+                .positionX(dto.getPositionX())
+                .positionY(dto.getPositionY())
                 .build();
     }
 
-    public RestaurantDtoWsec restaurantToDto(Restaurant r)
+    public RestaurantDtoWFull restaurantToDtoWFull(Restaurant r, User u)
     {
-        return RestaurantDtoWsec
+        return  RestaurantDtoWFull
                 .builder()
+                .id(r.getId())
                 .name(r.getName())
                 .foodTypes(r.getFoodTypes())
                 .imgUrl(r.getImgUrl())
@@ -34,7 +43,22 @@ public class RestaurantConverter
                 .closingH(r.getClosingHour())
                 .phone(r.getPhone())
                 .isOpen(isOpenRest(r))
-                .distanza(0)
+                .distance(calcDist(r, u))
+                .maxDeliveryDistance(r.getMaxDeliveryDistance())
+                .deliveryPricePerUnit(r.getDeliveryPricePerUnit())
+                .build();
+    }
+
+    public RestaurantDtoWAlone restaurantToDtoWAlone (Restaurant r, User u)
+    {
+        return  RestaurantDtoWAlone
+                .builder()
+                .id(r.getId())
+                .name(r.getName())
+                .foodTypes(r.getFoodTypes())
+                .imgUrl(r.getImgUrl())
+                .isOpen(isOpenRest(r))
+                .distance(calcDist(r, u))
                 .build();
     }
 
@@ -52,8 +76,8 @@ public class RestaurantConverter
         int userPositionY = user.getPositionY();
     
         
-        int deltaX = r.getPositionX() - userPositionX;
-        int deltaY = r.getPositionY() - userPositionY;
+        int deltaX = Math.abs(r.getPositionX() - userPositionX);
+        int deltaY = Math.abs(r.getPositionY() - userPositionY);
     
         
         return (int) Math.sqrt(deltaX * deltaX + deltaY * deltaY);
