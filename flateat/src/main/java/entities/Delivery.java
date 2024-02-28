@@ -5,6 +5,7 @@ import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -47,7 +48,7 @@ public class Delivery
     private Restaurant restaurant;  
 
     @JsonIgnore
-    @OneToMany(mappedBy = "delivery",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "delivery",cascade = CascadeType.REMOVE,fetch = FetchType.EAGER)
     private Set <DishToDelivery> dishesDeliveries;
 
 }

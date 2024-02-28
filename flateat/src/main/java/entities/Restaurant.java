@@ -4,6 +4,7 @@ import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
@@ -52,7 +53,7 @@ public class Restaurant
     private String imgUrl;
 
     @JsonIgnore 
-    @OneToMany(mappedBy = "restaurant",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "restaurant",cascade = CascadeType.REMOVE,fetch = FetchType.EAGER)
     private Set<Delivery> deliveries;
 
     @JsonIgnore
