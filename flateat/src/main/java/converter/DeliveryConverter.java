@@ -2,7 +2,6 @@ package converter;
 
 import org.springframework.stereotype.Service;
 
-import dto.delivery.DeliveryDtoBase;
 import dto.delivery.DeliveryDtoFull;
 import dto.delivery.DeliveryDtoR;
 import entities.Delivery;
@@ -35,8 +34,8 @@ public class DeliveryConverter
                 .notes(d.getNotes())
                 .dishesDeliveries(d.getDishesDeliveries())
                 .dishesPrice(calcDishesPrice(d))
-                .riderRevenue(calcRiderRevenue(d))
-                .totalPrice(calcTotalPrice(0, 0))
+                .riderRevenue(calcRiderRevenue(calcDishesPrice(d)))
+                .totalPrice(calcTotalPrice(calcDishesPrice(d),calcRiderRevenue(calcDishesPrice(d))))
                 .build();
     }
 
