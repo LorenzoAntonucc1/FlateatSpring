@@ -12,7 +12,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder
 
-public class UserDtoW {
+public class UserDtoW extends UserDtoBase{
 
 
     private String email;
