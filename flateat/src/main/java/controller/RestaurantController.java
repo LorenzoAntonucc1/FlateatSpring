@@ -27,7 +27,7 @@ public class RestaurantController
     @Autowired
     RestaurantConverter conv;
     
-    @GetMapping("/restaurant")
+    @GetMapping("/restaurants")
     public List<RestaurantDtoWsec> getAllRestaurant() 
     {
         return repo.findAll()
@@ -36,36 +36,36 @@ public class RestaurantController
                .toList();
     }
 
-    @GetMapping("/restaurant/search")
-    public List<RestaurantDtoWsec> searchRestaurantByNameAndFoodType(@RequestParam String partialName,@RequestParam String foodType) 
-    {
-        List<Restaurant> restaurantsByName = repo.findByNameContaining(partialName);
-        List<Restaurant> restaurantsByFoodType = repo.findByFoodTypesContaining(foodType);
+    // @GetMapping("/restaurant/search")
+    // public List<RestaurantDtoWsec> searchRestaurantByNameAndFoodType(@RequestParam String partialName,@RequestParam String foodType) 
+    // {
+    //     List<Restaurant> restaurantsByName = repo.findByNameContaining(partialName);
+    //     List<Restaurant> restaurantsByFoodType = repo.findByFoodTypesContaining(foodType);
 
         
-        List<Restaurant> intersection = restaurantsByName.stream()
-                .filter(restaurantsByFoodType::contains)
-                .collect(Collectors.toList());
+    //     List<Restaurant> intersection = restaurantsByName.stream()
+    //             .filter(restaurantsByFoodType::contains)
+    //             .collect(Collectors.toList());
 
-        return intersection.stream()
-                .map(conv::restaurantToDto)
-                .collect(Collectors.toList());
-    }
+    //     return intersection.stream()
+    //             .map(conv::restaurantToDto)
+    //             .collect(Collectors.toList());
+    // }
 
-    @GetMapping("/restaurant/{id}")
+    @GetMapping("/restaurants/{id}")
     public RestaurantDtoWsec getRestaurantById(@PathVariable Integer id) 
     {
         return conv.restaurantToDto(repo.findById(id).orElse(null));
     }
 
-    @PostMapping("/restaurant/add")
+    @PostMapping("/restaurants/add")
     public RestaurantDtoWsec addRestaurant(@RequestBody RestaurantDtoWsec restaurantDto) 
     {
         Restaurant restaurant = conv.dtoToRestaurant(restaurantDto);
         return conv.restaurantToDto(repo.save(restaurant));
     }
 
-    @PutMapping("/restaurant/{id}")
+    @PutMapping("/restaurants/{id}")
     public RestaurantDtoWsec updateRestaurant(@PathVariable Integer id, @RequestBody RestaurantDtoWsec restaurantDto) 
     {
         Restaurant existingRestaurant = repo.findById(id).orElse(null);
