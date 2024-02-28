@@ -1,5 +1,8 @@
 package com.generation.flateat.model.dto.dishtodelivery;
 
+import com.generation.flateat.model.entities.Delivery;
+import com.generation.flateat.model.entities.Dish;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,5 +15,8 @@ import lombok.experimental.SuperBuilder;
 public class DishToDeliveryDtoWFull extends DishToDeliveryDtoR 
 {
     private Integer id;   
-    private double totalPrice;
+    private double price;
+    private Dish dish;
+    private Delivery delivery;
+
 }

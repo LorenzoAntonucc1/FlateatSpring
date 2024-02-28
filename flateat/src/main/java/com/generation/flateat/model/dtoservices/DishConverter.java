@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import com.generation.flateat.model.dto.dish.DishDtoR;
 import com.generation.flateat.model.dto.dish.DishDtoWFull;
 import com.generation.flateat.model.dto.dish.DishDtoWNoDeliveries;
+import com.generation.flateat.model.dto.dish.DishDtoWNoMenu;
 import com.generation.flateat.model.entities.Dish;
 
 
@@ -20,6 +21,7 @@ public class DishConverter
                 .price(dto.getPrice())
                 .category(dto.getCategory())
                 .ingredients(dto.getIngredients())
+                .id(dto.getId())
                 .build();
     }
 
@@ -32,6 +34,7 @@ public class DishConverter
                 .category(dish.getCategory())
                 .ingredients(dish.getIngredients())
                 .deliveries(dish.getDeliveries())
+                .id(dish.getId())
                 .build();
     }
 
@@ -43,6 +46,21 @@ public class DishConverter
                 .price(dish.getPrice())
                 .category(dish.getCategory())
                 .ingredients(dish.getIngredients())
+                .id(dish.getId())
+                .menu(dish.getMenu())
+                .build();
+    }
+
+    public DishDtoWNoMenu dishToDtoWNoMenu (Dish dish)
+    {
+        return  DishDtoWNoMenu
+                .builder()
+                .name(dish.getName())
+                .price(dish.getPrice())
+                .category(dish.getCategory())
+                .ingredients(dish.getIngredients())
+                .id(dish.getId())
+                .deliveries(dish.getDeliveries())
                 .build();
     }
     

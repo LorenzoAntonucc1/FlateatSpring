@@ -16,8 +16,8 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public abstract class MenuDtoBase {
-
+public abstract class MenuDtoBase 
+{
     private Set<Dish> dishes;
     private Restaurant restaurant;
 }

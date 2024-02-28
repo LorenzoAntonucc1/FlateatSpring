@@ -14,4 +14,5 @@ import lombok.experimental.SuperBuilder;
 public class RestaurantDtoWNoUser extends RestaurantDtoBase
 {
     private Integer id;
+    private boolean isOpen;
 }

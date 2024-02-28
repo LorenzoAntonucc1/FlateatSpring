@@ -12,7 +12,6 @@ import lombok.experimental.SuperBuilder;
 public class RestaurantDtoWAlone extends RestaurantDtoBase
 {
     private Integer id;
-    private boolean isOpen;
-    private List<String> foodTypes;
     private int distance;
+    private boolean isOpen;
 }

@@ -9,9 +9,9 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder
 @AllArgsConstructor
-public class UserDtoRregister extends UserDtoBase
+public class UserDtoRPost extends UserDtoBase
 {
-    public UserDtoRregister(){};
+    public UserDtoRPost(){};
     private Integer id;
     private String phone;
     private int positionX;

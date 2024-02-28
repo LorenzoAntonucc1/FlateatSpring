@@ -35,29 +35,31 @@ public class DishToDeliveryController {
     public List<DishToDeliveryDtoWFull> getAllDishToDelivery() {
         return repo.findAll()
                 .stream()
-                .map(e -> conv.dishToDeliveryToDtoFull(e))
+                .map(e -> conv.DtoRToDishToDelivery(e))
                 .collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
     public DishToDeliveryDtoWFull getDishToDeliveryById(@PathVariable Integer id) {
-        return conv.dishToDeliveryToDtoFull(repo.findById(id).orElse(null));
+        return conv.DtoRToDishToDelivery(repo.findById(id).get());
     }
 
-    @PostMapping("/add")
-    public DishToDeliveryDtoWFull addDishToDelivery(@RequestBody DishToDeliveryDtoWFull dishToDeliveryDto) {
-        DishToDelivery dishToDelivery = conv.dtoFullToDishToDelivery(dishToDeliveryDto);
-        return conv.dishToDeliveryToDtoFull(repo.save(dishToDelivery));
-    }
+    // @PostMapping("/{id}}")
+    // public DishToDeliveryDtoWFull addDishToDelivery(@RequestBody DishToDeliveryDtoWFull dishToDeliveryDto) 
+    // {
+    //     DishToDelivery dishToDelivery = conv.dtoFullToDishToDelivery(dishToDeliveryDto);
+    //     return conv.dishToDeliveryToDtoFull(repo.save(dishToDelivery));
+    // }
 
-    @PutMapping("/{id}")
-    public DishToDeliveryDtoWFull updateDishToDelivery(@PathVariable Integer id, @RequestBody DishToDeliveryDtoWFull dishToDeliveryDto) {
-        DishToDelivery existingDishToDelivery = repo.findById(id).orElse(null);
-        if (existingDishToDelivery != null) {
-            DishToDelivery updatedDishToDelivery = conv.dtoFullToDishToDelivery(dishToDeliveryDto);
-            updatedDishToDelivery.setId(id);
-            return conv.dishToDeliveryToDtoFull(repo.save(updatedDishToDelivery));
-        }
-        return null;
-    }
+    // @PutMapping("/{id}")
+    // public DishToDeliveryDtoWFull updateDishToDelivery(@PathVariable Integer id, @RequestBody DishToDeliveryDtoWFull dishToDeliveryDto) 
+    // {
+    //     DishToDelivery existingDishToDelivery = repo.findById(id).orElse(null);
+    //     if (existingDishToDelivery != null) {
+    //         DishToDelivery updatedDishToDelivery = conv.dtoFullToDishToDelivery(dishToDeliveryDto);
+    //         updatedDishToDelivery.setId(id);
+    //         return conv.dishToDeliveryToDtoFull(repo.save(updatedDishToDelivery));
+    //     }
+    //     return null;
+    // }
 }

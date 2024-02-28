@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.generation.flateat.model.dto.user.UserDtoR;
-import com.generation.flateat.model.dto.user.UserDtoRregister;
+import com.generation.flateat.model.dto.user.UserDtoRPost;
 import com.generation.flateat.model.dto.user.UserDtoWFull;
 import com.generation.flateat.model.dto.user.UserDtoWNoDeliveries;
 import com.generation.flateat.model.dtoservices.UserConverter;
@@ -41,31 +40,6 @@ public class UserController
                 .toList();
     }
 
-    // @GetMapping("/search")
-    // public List<UserDtoW> searchUsersByEmailAndPhone(@RequestParam String partialEmail, @RequestParam String phone) {
-    //     List<User> usersByEmail = repo.findByEmailContaining(partialEmail);
-    //     List<User> usersByPhone = repo.findByPhoneContaining(phone);
-        
-
-    //     List<User> intersection = usersByEmail.stream()
-    //             .filter(usersByPhone::contains)
-    //             .collect(Collectors.toList());
-
-    //     return intersection.stream()
-    //             .map(conv::convertToDtoW)
-    //             .collect(Collectors.toList());
-    // }
-
-    // @GetMapping("/{id}/login")
-    // public UserDtoW getUserById(@RequestBody String email, @RequestBody String password) 
-    // {
-    //     User u = repo.findById(id).get();
-    //     if(u.getEmail().equals(email) && u.getPassword().equals(password))
-    //     return conv.convertToDtoW(repo.findById(id).orElse(null));
-    //     else
-    //     return null;
-    // }
-
     @GetMapping("/login")
     public UserDtoWFull getLogged(@RequestBody String email, @RequestBody String password) 
     {
@@ -78,26 +52,26 @@ public class UserController
     }
 
     @PostMapping("/register")
-    public UserDtoWNoDeliveries addUser(@RequestBody UserDtoRregister u) 
+    public UserDtoWNoDeliveries addUser(@RequestBody UserDtoRPost u) 
     {
         User user = conv.DtoRregisterToUser(u);
         return conv.userToDtoWNoDeliveries(repo.save(user));
     }
 
-    @PutMapping("/{id}")
-    public UserDtoWFull updateUser(@PathVariable Integer id, @RequestBody UserDtoR userDto) 
-    {
-        User u = conv.DtoRToUser(userDto);
+    // @PutMapping("/{id}")
+    // public UserDtoWFull updateUser(@PathVariable Integer id, @RequestBody UserDtoR userDto) 
+    // {
+    //     User u = conv.DtoRToUser(userDto);
 
-        u.setId(id);
+    //     u.setId(id);
 
-        return conv.userToDtoWFull(repo.save(u));
-    }
+    //     return conv.userToDtoWFull(repo.save(u));
+    // }
 
-    @DeleteMapping("/{id}")
-    public void deleteUser(@PathVariable Integer id)
-    {
-        repo.deleteById(id);
-    }
+    // @DeleteMapping("/{id}")
+    // public void deleteUser(@PathVariable Integer id)
+    // {
+    //     repo.deleteById(id);
+    // }
 }
 
