@@ -14,7 +14,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
@@ -50,19 +49,17 @@ public class Restaurant
     @Column(name = "type", nullable = false)                     
     private List <String> foodTypes = new ArrayList<>();
 
-
-
     private double deliveryPricePerUnit;
     private int maxDeliveryDistance;
     private String imgUrl;
 
     @JsonIgnore
     @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "menu_id")
+    @JoinColumn(name = "delivery_id")
     private Set<Delivery> deliveries;
 
     @JsonIgnore
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "menu_id")
+    @JoinColumn(name = "menu_id", unique = true)
     private Menu menu;
 }
