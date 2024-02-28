@@ -1,4 +1,4 @@
-package dto.restaurant;
+package com.generation.flateat.model.dto.restaurant;
 
 import java.util.List;
 

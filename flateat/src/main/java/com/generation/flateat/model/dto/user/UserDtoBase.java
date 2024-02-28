@@ -1,4 +1,4 @@
-package dto.User;
+package com.generation.flateat.model.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -6,15 +6,15 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public class UserDtoWNoDeliveries extends UserDtoBase
+
+public abstract class UserDtoBase 
 {
-    private Integer id;
-    private String phone;
-    private int positionX;
-    private int positionY;
+    private String mail;
+    private String password;
 }

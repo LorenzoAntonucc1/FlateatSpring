@@ -1,4 +1,4 @@
-package entities;
+package com.generation.flateat.model.entities;
 
 import java.util.Set;
 

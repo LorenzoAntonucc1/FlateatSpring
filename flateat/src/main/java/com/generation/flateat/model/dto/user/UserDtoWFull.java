@@ -1,7 +1,8 @@
-package dto.User;
+package com.generation.flateat.model.dto.user;
 import java.util.Set;
 
-import entities.Delivery;
+import com.generation.flateat.model.entities.Delivery;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

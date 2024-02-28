@@ -1,16 +1,16 @@
-package converter;
+package com.generation.flateat.model.dtoservices;
 
 import java.time.LocalTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import dto.restaurant.RestaurantDtoR;
-import dto.restaurant.RestaurantDtoWAlone;
-import dto.restaurant.RestaurantDtoWFull;
-import entities.Restaurant;
-import entities.User;
-import repository.UserRepository;
+import com.generation.flateat.model.dto.restaurant.RestaurantDtoR;
+import com.generation.flateat.model.dto.restaurant.RestaurantDtoWAlone;
+import com.generation.flateat.model.dto.restaurant.RestaurantDtoWFull;
+import com.generation.flateat.model.entities.Restaurant;
+import com.generation.flateat.model.entities.User;
+import com.generation.flateat.model.repositories.UserRepository;
 
 @Service
 public class RestaurantConverter 

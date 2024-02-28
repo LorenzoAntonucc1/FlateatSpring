@@ -1,5 +1,5 @@
 
-package controller;
+package com.generation.flateat.controllers;
 
 import java.util.List;
 
@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import converter.UserConverter;
-import dto.User.UserDtoR;
-import dto.User.UserDtoRregister;
-import dto.User.UserDtoWFull;
-import dto.User.UserDtoWNoDeliveries;
-import entities.User;
-import repository.UserRepository;
+import com.generation.flateat.model.dto.user.UserDtoR;
+import com.generation.flateat.model.dto.user.UserDtoRregister;
+import com.generation.flateat.model.dto.user.UserDtoWFull;
+import com.generation.flateat.model.dto.user.UserDtoWNoDeliveries;
+import com.generation.flateat.model.dtoservices.UserConverter;
+import com.generation.flateat.model.entities.User;
+import com.generation.flateat.model.repositories.UserRepository;
 
 @RestController
 @RequestMapping("/users")

@@ -1,4 +1,4 @@
-package dto.User;
+package com.generation.flateat.model.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,4 +1,5 @@
-package entities;
+package com.generation.flateat.model.entities;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -14,49 +15,43 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Restaurant 
+public class Dish 
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
-    private String phone;
-    private int openingHour;
-    private int closingHour;
-    private int positionX;
-    private int positionY;
+    private String category;
+    private double price;
 
     //Tipo da leggere
     @ElementCollection(targetClass = String.class, fetch = FetchType.EAGER) 
     //Nome tabella
-    @CollectionTable(name = "foodTypes", joinColumns = @JoinColumn(name = "restaurant_id")) 
+    @CollectionTable(name = "ingredients", joinColumns = @JoinColumn(name = "dish_id")) 
     //Nome proprietà
-    @Column(name = "type", nullable = false)                     
-    private List <String> foodTypes = new ArrayList<>();
-
-    private double deliveryPricePerUnit;
-    private int maxDeliveryDistance;
-    private String imgUrl;
+    @Column(name = "ingredient", nullable = false)                     
+    private List <String> ingredients = new ArrayList<>();
 
     @JsonIgnore
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "restaurant")
-    private Set<Delivery> deliveries;
+    @OneToMany(mappedBy = "dish",fetch = FetchType.EAGER)
+    private Set<DishToDelivery> deliveries;
 
     @JsonIgnore
-    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "menu_id")
+    @ManyToOne(fetch = FetchType.EAGER)
     private Menu menu;
 }

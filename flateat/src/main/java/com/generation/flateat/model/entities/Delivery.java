@@ -1,25 +1,35 @@
-package entities;
+package com.generation.flateat.model.entities;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class Delivery 
 {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private LocalDateTime expectedArrivalTime;
     private int distance;
@@ -35,4 +45,8 @@ public class Delivery
     @JoinColumn(name = "user_id")
     @ManyToOne(fetch = FetchType.EAGER)
     private User user;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "delivery",fetch = FetchType.EAGER)
+    private Set<DishToDelivery> dishesDeliveries;
 }

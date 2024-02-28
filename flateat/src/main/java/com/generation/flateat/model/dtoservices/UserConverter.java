@@ -1,12 +1,12 @@
-package converter;
+package com.generation.flateat.model.dtoservices;
 
 import org.springframework.stereotype.Service;
 
-import dto.User.UserDtoR;
-import dto.User.UserDtoRregister;
-import dto.User.UserDtoWFull;
-import dto.User.UserDtoWNoDeliveries;
-import entities.User;
+import com.generation.flateat.model.dto.user.UserDtoR;
+import com.generation.flateat.model.dto.user.UserDtoRregister;
+import com.generation.flateat.model.dto.user.UserDtoWFull;
+import com.generation.flateat.model.dto.user.UserDtoWNoDeliveries;
+import com.generation.flateat.model.entities.User;
 
 @Service
 public class UserConverter 

@@ -1,4 +1,4 @@
-package controller;
+package com.generation.flateat.controllers;
 
 import java.util.List;
 
@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import converter.RestaurantConverter;
-import dto.restaurant.RestaurantDtoWAlone;
-import dto.restaurant.RestaurantDtoWFull;
-import repository.RestaurantRepository;
-import repository.UserRepository;
+import com.generation.flateat.model.dto.restaurant.RestaurantDtoWAlone;
+import com.generation.flateat.model.dto.restaurant.RestaurantDtoWFull;
+import com.generation.flateat.model.dtoservices.RestaurantConverter;
+import com.generation.flateat.model.repositories.RestaurantRepository;
+import com.generation.flateat.model.repositories.UserRepository;
 
 @RestController
 public class RestaurantController 
@@ -51,9 +51,9 @@ public class RestaurantController
     //             .collect(Collectors.toList());
     // }
 
-    @GetMapping("/restaurant/{id}/{id}")
-    public RestaurantDtoWFull getRestaurantByUserId(@PathVariable Integer idr, @PathVariable Integer idu) 
+    @GetMapping("/restaurant/{restuarantId}/{userId}")
+    public RestaurantDtoWFull getRestaurantByUserId(@PathVariable Integer restuarantId, @PathVariable Integer userId) 
     {
-        return conv.restaurantToDtoWFull(repo.findById(idr).get(), uRepo.findById(idu).get());
+        return conv.restaurantToDtoWFull(repo.findById(restuarantId).get(), uRepo.findById(userId).get());
     }
 }
