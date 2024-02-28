@@ -1,9 +1,13 @@
 package entities;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -16,9 +20,12 @@ import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -34,7 +41,17 @@ public class Restaurant
     private int closingHour;
     private int positionX;
     private int positionY;
-    private List <String> foodTypes;
+
+    //Tipo da leggere
+    @ElementCollection(targetClass = String.class, fetch = FetchType.EAGER) 
+    //Nome tabella
+    @CollectionTable(name = "foodTypes", joinColumns = @JoinColumn(name = "restaurant_id")) 
+    //Nome proprietà
+    @Column(name = "type", nullable = false)                     
+    private List <String> foodTypes = new ArrayList<>();
+
+
+
     private double deliveryPricePerUnit;
     private int maxDeliveryDistance;
     private String imgUrl;

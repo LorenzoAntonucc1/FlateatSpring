@@ -17,6 +17,9 @@ public class UserDtoW extends UserDtoBase{
 
     private String email;
     private String password;
+public class UserDtoW extends UserDtoBase
+{
+    private Integer id;
     private String phone;
     private Set<Delivery> deliveries;
 }
