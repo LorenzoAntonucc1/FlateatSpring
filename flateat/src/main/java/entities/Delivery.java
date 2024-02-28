@@ -32,7 +32,7 @@ public class Delivery
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private LocalDateTime expectedArrivalTime;
+    private LocalDateTime expected_arrival;
     private int distance;
     private String paymentMethod; 
     private String notes;
