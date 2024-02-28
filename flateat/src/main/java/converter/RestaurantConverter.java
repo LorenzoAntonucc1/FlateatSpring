@@ -22,6 +22,7 @@ public class RestaurantConverter
                 .imgUrl(dto.getImgUrl())
                 .build();
     }
+
     public RestaurantDtoWsec restaurantToDto(Restaurant r)
     {
         return RestaurantDtoWsec

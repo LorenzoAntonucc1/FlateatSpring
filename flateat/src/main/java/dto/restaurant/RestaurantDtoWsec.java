@@ -13,8 +13,10 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 public class RestaurantDtoWsec extends RestaurantDtoBase
 {
+    private Integer id;
     private String name;
     private boolean isOpen;
     private List<String> foodTypes;
     private int distanza;
+
 }
