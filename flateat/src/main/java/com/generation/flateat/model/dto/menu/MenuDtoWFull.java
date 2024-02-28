@@ -13,7 +13,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder
 
-public class MenuDtoW extends MenuDtoBase
+public class MenuDtoWFull extends MenuDtoBase
 {
     private Integer id;
 }

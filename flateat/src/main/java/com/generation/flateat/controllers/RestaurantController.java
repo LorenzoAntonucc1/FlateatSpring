@@ -17,8 +17,7 @@ import com.generation.flateat.model.repositories.UserRepository;
 @RestController
 public class RestaurantController 
 {
-
-    @Autowired
+@Autowired
     RestaurantRepository repo;
     
     @Autowired
@@ -28,12 +27,9 @@ public class RestaurantController
     RestaurantConverter conv;
     
     @GetMapping("/restaurants/{id}")
-    public List<RestaurantDtoWAlone> getAllRestaurant(@PathVariable Integer id) 
+    public RestaurantDtoWAlone getAllRestaurantById(@PathVariable Integer id) 
     {
-        return  repo.findAll()
-               .stream()
-               .map(e -> conv.restaurantToDtoWAlone(e,uRepo.findById(id).get()))
-               .toList();
+        return  conv.restaurantToDtoWAlone(repo.findById(id).get(), uRepo.findById(id).get());
     }
 
     @GetMapping("/restaurants")
@@ -44,6 +40,7 @@ public class RestaurantController
                .map(e -> conv.restaurantToDtoWNoUser(e))
                .toList();
     }
+    
 
     // @GetMapping("/restaurant/search")
     // public List<RestaurantDtoWsec> searchRestaurantByNameAndFoodType(@RequestParam String partialName,@RequestParam String foodType) 
@@ -61,7 +58,7 @@ public class RestaurantController
     //             .collect(Collectors.toList());
     // }
 
-    @GetMapping("/restaurant/{restuarantId}/{userId}")
+    @GetMapping("/restaurant/{restaurantId}/{userId}")
     public RestaurantDtoWFull getRestaurantByUserId(@PathVariable Integer restuarantId, @PathVariable Integer userId) 
     {
         return conv.restaurantToDtoWFull(repo.findById(restuarantId).get(), uRepo.findById(userId).get());

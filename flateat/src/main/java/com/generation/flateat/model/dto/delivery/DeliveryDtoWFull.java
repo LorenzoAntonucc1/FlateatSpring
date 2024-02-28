@@ -13,11 +13,10 @@ import lombok.experimental.SuperBuilder;
 
 @Getter
 @Setter
-@EqualsAndHashCode(callSuper=false)
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public class DeliveryDtoFull extends DeliveryDtoBase 
+public class DeliveryDtoWFull extends DeliveryDtoBase 
 {
     private Integer id;
     private String notes;

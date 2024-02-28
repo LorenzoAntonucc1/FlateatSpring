@@ -1,11 +1,14 @@
 package com.generation.flateat.model.dtoservices;
 
+import org.springframework.stereotype.Service;
+
 import com.generation.flateat.model.dto.user.UserDtoR;
-import com.generation.flateat.model.dto.user.UserDtoRregister;
+import com.generation.flateat.model.dto.user.UserDtoRPost;
 import com.generation.flateat.model.dto.user.UserDtoWFull;
 import com.generation.flateat.model.dto.user.UserDtoWNoDeliveries;
 import com.generation.flateat.model.entities.User;
 
+@Service
 public class UserConverter 
 {
 
@@ -19,7 +22,7 @@ public class UserConverter
                 .build();
     }
     
-    public User DtoRregisterToUser (UserDtoRregister dto)
+    public User DtoRregisterToUser (UserDtoRPost dto)
     {
         return  User
                 .builder()

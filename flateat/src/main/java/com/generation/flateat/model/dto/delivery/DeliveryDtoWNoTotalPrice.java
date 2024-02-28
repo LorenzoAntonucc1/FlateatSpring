@@ -1,11 +1,11 @@
-package com.generation.flateat.model.dto.dish;
+package com.generation.flateat.model.dto.delivery;
 
 import java.util.Set;
 
 import com.generation.flateat.model.entities.DishToDelivery;
-import com.generation.flateat.model.entities.Menu;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,9 +16,9 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public class DishDtoWFull extends DishDtoBase 
+public class DeliveryDtoWNoTotalPrice extends DeliveryDtoBase 
 {
     private Integer id;
-    private Set<DishToDelivery> deliveries;
-    private Menu menu;
+    private String notes;
+    private Set<DishToDelivery> dishesDeliveries;
 }

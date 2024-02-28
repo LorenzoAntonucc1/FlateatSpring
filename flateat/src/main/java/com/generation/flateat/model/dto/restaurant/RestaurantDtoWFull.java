@@ -16,12 +16,11 @@ import lombok.experimental.SuperBuilder;
 public class RestaurantDtoWFull extends RestaurantDtoBase
 {
     private Integer id;
-    private boolean isOpen;
-    private List<String> foodTypes;
     private int distance;
     private int maxDeliveryDistance;
     private double deliveryPricePerUnit;
     private String phone;
     private int openingH;
     private int closingH;
+    private boolean isOpen;
 }

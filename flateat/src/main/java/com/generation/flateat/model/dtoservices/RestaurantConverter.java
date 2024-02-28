@@ -29,6 +29,7 @@ public class RestaurantConverter
                 .imgUrl(dto.getImgUrl())
                 .positionX(dto.getPositionX())
                 .positionY(dto.getPositionY())
+                .foodTypes(dto.getFoodTypes())
                 .build();
     }
 
@@ -39,6 +40,8 @@ public class RestaurantConverter
                 .id(r.getId())
                 .name(r.getName())
                 .imgUrl(r.getImgUrl())
+                .foodTypes(r.getFoodTypes())
+                .isOpen(isOpenRest(r))
                 .build();
     }
 
@@ -48,11 +51,11 @@ public class RestaurantConverter
                 .builder()
                 .id(r.getId())
                 .name(r.getName())
-                .foodTypes(r.getFoodTypes())
                 .imgUrl(r.getImgUrl())
                 .openingH(r.getOpeningHour())
                 .closingH(r.getClosingHour())
                 .phone(r.getPhone())
+                .foodTypes(r.getFoodTypes())
                 .isOpen(isOpenRest(r))
                 .distance(calcDist(r, u))
                 .maxDeliveryDistance(r.getMaxDeliveryDistance())
