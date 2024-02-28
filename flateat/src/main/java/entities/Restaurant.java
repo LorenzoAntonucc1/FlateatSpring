@@ -1,5 +1,4 @@
 package entities;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -41,23 +40,19 @@ public class Restaurant
     private int positionY;
 
     //Tipo da leggere
-    @ElementCollection(targetClass = String.class, fetch = FetchType.LAZY) 
+    @ElementCollection(targetClass = String.class, fetch = FetchType.EAGER) 
     //Nome tabella
     @CollectionTable(name = "foodTypes", joinColumns = @JoinColumn(name = "restaurant_id")) 
     //Nome proprietà
-    @Column(name = "type", nullable = false)   
-    //assicura che, quando stai costruendo un oggetto Restaurant con il builder generato
-    //da Lombok, la lista foodTypes sarà inizializzata con una nuova ArrayList 
-    //come valore predefinito se non viene specificato alcun valore.
-    @Builder.Default                   
-    private List <String> foodTypes = new ArrayList<>();
+    @Column(name = "type", nullable = false)             
+    private List <String> foodTypes;
 
     private double deliveryPricePerUnit;
     private int maxDeliveryDistance;
     private String imgUrl;
 
     @JsonIgnore 
-    @OneToMany(mappedBy = "restaurant",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "restaurant",fetch = FetchType.EAGER)
     private Set<Delivery> deliveries;
 
     @JsonIgnore

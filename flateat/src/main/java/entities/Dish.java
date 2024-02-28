@@ -6,6 +6,7 @@ import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
@@ -43,15 +44,11 @@ public class Dish
     //Nome tabella
     @CollectionTable(name = "ingredients", joinColumns = @JoinColumn(name = "dish_id")) 
     //Nome proprietà
-    @Column(name = "ingredient", nullable = false) 
-    //assicura che, quando stai costruendo un oggetto Restaurant con il builder generato
-    //da Lombok, la lista foodTypes sarà inizializzata con una nuova ArrayList 
-    //come valore predefinito se non viene specificato alcun valore.
-    @Builder.Default                                       
-    private List <String> ingredients = new ArrayList<>();
+    @Column(name = "ingredient", nullable = false)       
+    private List <String> ingredients;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "dish", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "dish",cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private Set<DishToDelivery> deliveries;
 
     @JsonIgnore
