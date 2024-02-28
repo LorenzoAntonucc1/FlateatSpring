@@ -1,7 +1,10 @@
-package dto.User;
+package dto.menu;
+
 import java.util.Set;
 
-import entities.Delivery;
+import entities.Dish;
+import entities.Restaurant;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,10 +15,8 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder
 
+public abstract class MenuDtoBase {
 
-public class UserDtoW extends UserDtoBase
-{
-    private Integer id;
-    private String phone;
-    private Set<Delivery> deliveries;
+    private Set<Dish> dishes;
+    private Restaurant restaurant;
 }
