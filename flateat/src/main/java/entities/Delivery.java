@@ -3,6 +3,8 @@ package entities;
 import java.time.LocalDateTime;
 import java.util.Set;
 
+import org.hibernate.annotations.OnDelete;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
@@ -12,6 +14,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -44,8 +47,7 @@ public class Delivery
     private Restaurant restaurant;  
 
     @JsonIgnore
-    @JoinColumn(name = "dishDeliveries_id")
-    @ManyToOne(fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "delivery",fetch = FetchType.EAGER)
     private Set <DishToDelivery> dishesDeliveries;
 
 }
