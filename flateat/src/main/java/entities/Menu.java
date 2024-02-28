@@ -1,6 +1,5 @@
 package entities;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -37,8 +36,9 @@ public class Menu
     private Set<Dish> dishes;
 
     @JsonIgnore
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "restaurant_id", unique = true)
     private Restaurant restaurant;
+
 
 }

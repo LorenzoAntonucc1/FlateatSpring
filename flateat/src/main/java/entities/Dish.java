@@ -1,7 +1,6 @@
 package entities;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -40,15 +39,19 @@ public class Dish
     private String category;
     private double price;
     //Tipo da leggere
-    @ElementCollection(targetClass = String.class, fetch = FetchType.EAGER) 
+    @ElementCollection(targetClass = String.class, fetch = FetchType.LAZY) 
     //Nome tabella
     @CollectionTable(name = "ingredients", joinColumns = @JoinColumn(name = "dish_id")) 
     //Nome proprietà
-    @Column(name = "ingredient", nullable = false)                     
+    @Column(name = "ingredient", nullable = false) 
+    //assicura che, quando stai costruendo un oggetto Restaurant con il builder generato
+    //da Lombok, la lista foodTypes sarà inizializzata con una nuova ArrayList 
+    //come valore predefinito se non viene specificato alcun valore.
+    @Builder.Default                                       
     private List <String> ingredients = new ArrayList<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "dish", fetch = FetchType.EAGER)
     private Set<DishToDelivery> deliveries;
 
     @JsonIgnore

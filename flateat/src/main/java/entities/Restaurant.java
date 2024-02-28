@@ -18,10 +18,12 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -39,24 +41,26 @@ public class Restaurant
     private int positionY;
 
     //Tipo da leggere
-    @ElementCollection(targetClass = String.class, fetch = FetchType.EAGER) 
+    @ElementCollection(targetClass = String.class, fetch = FetchType.LAZY) 
     //Nome tabella
     @CollectionTable(name = "foodTypes", joinColumns = @JoinColumn(name = "restaurant_id")) 
     //Nome proprietà
-    @Column(name = "type", nullable = false)                     
+    @Column(name = "type", nullable = false)   
+    //assicura che, quando stai costruendo un oggetto Restaurant con il builder generato
+    //da Lombok, la lista foodTypes sarà inizializzata con una nuova ArrayList 
+    //come valore predefinito se non viene specificato alcun valore.
+    @Builder.Default                   
     private List <String> foodTypes = new ArrayList<>();
 
     private double deliveryPricePerUnit;
     private int maxDeliveryDistance;
     private String imgUrl;
 
-    @JsonIgnore
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "delivery_id")
+    @JsonIgnore 
+    @OneToMany(mappedBy = "restaurant",fetch = FetchType.LAZY)
     private Set<Delivery> deliveries;
 
     @JsonIgnore
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "menu_id", unique = true)
+    @OneToOne(mappedBy = "restaurant",fetch = FetchType.EAGER)
     private Menu menu;
 }
