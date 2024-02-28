@@ -1,12 +1,12 @@
 package entities;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
@@ -40,15 +40,15 @@ public class Dish
     private String category;
     private double price;
     //Tipo da leggere
-    @ElementCollection(targetClass = String.class, fetch = FetchType.EAGER) 
+    @ElementCollection(targetClass = String.class, fetch = FetchType.LAZY) 
     //Nome tabella
     @CollectionTable(name = "ingredients", joinColumns = @JoinColumn(name = "dish_id")) 
     //Nome proprietà
-    @Column(name = "ingredient", nullable = false)                     
-    private List <String> ingredients = new ArrayList<>();
+    @Column(name = "ingredient", nullable = false)       
+    private List <String> ingredients;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "dish",cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private Set<DishToDelivery> deliveries;
 
     @JsonIgnore

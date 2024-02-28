@@ -1,5 +1,4 @@
 package entities;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -18,7 +17,6 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -46,20 +44,18 @@ public class Restaurant
     //Nome tabella
     @CollectionTable(name = "foodTypes", joinColumns = @JoinColumn(name = "restaurant_id")) 
     //Nome proprietà
-    @Column(name = "type", nullable = false)                     
-    private List <String> foodTypes = new ArrayList<>();
+    @Column(name = "type", nullable = false)             
+    private List <String> foodTypes;
 
     private double deliveryPricePerUnit;
     private int maxDeliveryDistance;
     private String imgUrl;
 
-    @JsonIgnore
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "delivery_id")
+    @JsonIgnore 
+    @OneToMany(mappedBy = "restaurant",fetch = FetchType.EAGER)
     private Set<Delivery> deliveries;
 
     @JsonIgnore
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "menu_id", unique = true)
+    @OneToOne(mappedBy = "restaurant",fetch = FetchType.EAGER)
     private Menu menu;
 }
