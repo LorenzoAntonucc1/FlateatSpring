@@ -37,4 +37,5 @@ public class User
     @JsonIgnore
     @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE,fetch = FetchType.EAGER)
     private Set<Delivery> deliveries;
+    
 }
