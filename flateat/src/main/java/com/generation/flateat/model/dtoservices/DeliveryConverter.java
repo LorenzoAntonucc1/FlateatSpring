@@ -5,10 +5,8 @@ import org.springframework.stereotype.Service;
 import com.generation.flateat.model.dto.delivery.DeliveryDtoWFull;
 import com.generation.flateat.model.dto.delivery.DeliveryDtoWNoTotalPrice;
 import com.generation.flateat.model.dto.delivery.DeliveryDtoR;
-import com.generation.flateat.model.dto.restaurant.RestaurantDtoWFull;
 import com.generation.flateat.model.entities.Delivery;
 import com.generation.flateat.model.entities.DishToDelivery;
-import com.generation.flateat.model.entities.Restaurant;
 
 
 @Service
@@ -27,7 +25,7 @@ public class DeliveryConverter
                 .build();
     }
 
-    public DeliveryDtoWFull DeliveryToDtoWFull(Delivery d, Restaurant r ) {
+    public DeliveryDtoWFull DeliveryToDtoWFull(Delivery d) {
         return DeliveryDtoWFull
                 .builder()
                 .expected_arrival(d.getExpected_arrival())
@@ -40,7 +38,7 @@ public class DeliveryConverter
                 .dishesDeliveries(d.getDishesDeliveries())
                 .dishesPrice(calcDishesPrice(d))
                 .riderRevenue(calcRiderRevenue(calcDishesPrice(d)))
-                .totalPrice(calcTotalPrice(calcDishesPrice(d), r))
+                .totalPrice(calcTotalPrice(calcDishesPrice(d), d))
                 .build();
     }
 
@@ -76,9 +74,9 @@ public class DeliveryConverter
         return riderRevenue;
     }
 
-    private double calcTotalPrice(double dishesPrice, Restaurant r) 
+    private double calcTotalPrice(double dishesPrice,Delivery d) 
     {
-        double totalPrice = dishesPrice + r.getDeliveryPricePerUnit();
+        double totalPrice = dishesPrice + d.getRestaurant().getDeliveryPricePerUnit();
 
         return totalPrice;
     }

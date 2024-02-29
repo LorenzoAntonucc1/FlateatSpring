@@ -2,7 +2,6 @@ package com.generation.flateat.model.entities;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.generation.flateat.model.entities.Delivery;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

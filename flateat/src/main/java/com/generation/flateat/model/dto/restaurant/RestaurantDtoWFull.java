@@ -1,7 +1,5 @@
 package com.generation.flateat.model.dto.restaurant;
 
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

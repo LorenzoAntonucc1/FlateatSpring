@@ -11,16 +11,12 @@ import com.generation.flateat.model.dto.delivery.DeliveryDtoWFull;
 import com.generation.flateat.model.dto.delivery.DeliveryDtoWNoTotalPrice;
 import com.generation.flateat.model.dtoservices.DeliveryConverter;
 import com.generation.flateat.model.repositories.DeliveryRepository;
-import com.generation.flateat.model.repositories.RestaurantRepository;
 
 @RestController
 public class DeliveryController 
 {
     @Autowired
     DeliveryRepository repo;
-
-    @Autowired
-    RestaurantRepository rRepo;
 
     @Autowired
     DeliveryConverter conv;
@@ -40,10 +36,10 @@ public class DeliveryController
                .toList();
     }
 
-    @GetMapping("/delivery/{deliveryId}/{restaurantId}")
-    public DeliveryDtoWFull getDeliveryByRestaurantId(@PathVariable Integer deliveryId, @PathVariable Integer restaurantId) 
+    @GetMapping("/delivery/{deliveryId}")
+    public DeliveryDtoWFull getDeliveryByRestaurantId(@PathVariable Integer deliveryId) 
     {
-        return conv.DeliveryToDtoWFull(repo.findById(deliveryId).get(), rRepo.findById(restaurantId).get());
+        return conv.DeliveryToDtoWFull(repo.findById(deliveryId).get());
     }
 }
 
