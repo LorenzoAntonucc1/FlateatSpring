@@ -22,10 +22,16 @@ public class MenuController
     @Autowired
     MenuRepository repo;
 
-    @GetMapping("/menu/{id}")
-    public MenuDtoWFull getAllMenuById(@PathVariable Integer id) 
+    @GetMapping("/menu/{restaurantId}")
+    public MenuDtoWFull getAllMenuById(@PathVariable Integer restaurantId) 
     {
-        return  conv.menuToDtoWFull(repo.findById(id).get());
+        List<MenuDtoWFull> list = repo.findAll()
+        .stream()
+        .map(e -> conv.menuToDtoWFull(e))
+        .toList();
+
+        list = list.stream().filter(m -> m.getRestaurant().getId() == restaurantId).toList();
+        return list.stream().findFirst().get();
     }
 
     @GetMapping("/menu")

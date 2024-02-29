@@ -68,8 +68,8 @@ public class RestaurantController
     }
 
     @GetMapping("/restaurant/{restaurantId}/{userId}")
-    public RestaurantDtoWFull getRestaurantByUserId(@PathVariable Integer restuarantId, @PathVariable Integer userId) 
+    public RestaurantDtoWFull getRestaurantByUserId(@PathVariable Integer restaurantId, @PathVariable Integer userId) 
     {
-        return conv.restaurantToDtoWFull(repo.findById(restuarantId).get(), uRepo.findById(userId).get());
+        return conv.restaurantToDtoWFull(repo.findById(restaurantId).get(), uRepo.findById(userId).get());
     }
 }

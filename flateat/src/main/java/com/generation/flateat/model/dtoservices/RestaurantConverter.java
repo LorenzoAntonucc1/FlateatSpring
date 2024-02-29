@@ -99,8 +99,10 @@ public class RestaurantConverter
     public boolean isOpenRest(Restaurant r) 
     {
         int currentHour = LocalTime.now().getHour();
-
-        return currentHour >= r.getOpeningHour() && currentHour < r.getClosingHour();
+        if(currentHour >= r.getOpeningHour())
+            if(currentHour <= r.getClosingHour())
+                return true;
+        return false;
     }
 
     public int calcDist(Restaurant r, User user) 
