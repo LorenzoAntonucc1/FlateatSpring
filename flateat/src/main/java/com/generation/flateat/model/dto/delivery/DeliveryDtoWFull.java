@@ -5,7 +5,6 @@ import java.util.Set;
 import com.generation.flateat.model.entities.DishToDelivery;
 
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

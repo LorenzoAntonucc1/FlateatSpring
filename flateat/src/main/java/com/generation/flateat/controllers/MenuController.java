@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.generation.flateat.model.dto.menu.MenuDtoWFull;
-import com.generation.flateat.model.dto.restaurant.RestaurantDtoWAlone;
-import com.generation.flateat.model.dto.restaurant.RestaurantDtoWNoUser;
 import com.generation.flateat.model.dtoservices.MenuConverter;
 import com.generation.flateat.model.repositories.MenuRepository;
 
