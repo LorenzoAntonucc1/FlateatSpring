@@ -63,7 +63,27 @@ public class RestaurantConverter
                 .build();
     }
 
-    public RestaurantDtoWAlone restaurantToDtoWAlone (Restaurant r)
+    public RestaurantDtoWFull restaurantFullWithUser(Restaurant r, Integer id)
+    {
+        User u = repo.findById(id).get();
+
+        return  RestaurantDtoWFull
+                .builder()
+                .id(r.getId())
+                .name(r.getName())
+                .imgUrl(r.getImgUrl())
+                .openingH(r.getOpeningHour())
+                .closingH(r.getClosingHour())
+                .phone(r.getPhone())
+                .foodTypes(r.getFoodTypes())
+                .isOpen(isOpenRest(r))
+                .distance(calcDist(r, u))
+                .maxDeliveryDistance(r.getMaxDeliveryDistance())
+                .deliveryPricePerUnit(r.getDeliveryPricePerUnit())
+                .build();
+    }
+
+    public RestaurantDtoWAlone restaurantToDtoWAlone (Restaurant r, User u)
     {
         return  RestaurantDtoWAlone
                 .builder()
