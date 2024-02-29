@@ -58,6 +58,15 @@ public class RestaurantController
     //             .collect(Collectors.toList());
     // }
 
+    @GetMapping("/restaurants/user/{id}")
+    public List<RestaurantDtoWFull> getAllRestaurantWithUserLogged(@PathVariable Integer id)
+    {
+        return repo.findAll()
+        .stream()
+        .map(e -> conv.restaurantFullWithUser(e, id))
+        .toList();
+    }
+
     @GetMapping("/restaurant/{restaurantId}/{userId}")
     public RestaurantDtoWFull getRestaurantByUserId(@PathVariable Integer restuarantId, @PathVariable Integer userId) 
     {
