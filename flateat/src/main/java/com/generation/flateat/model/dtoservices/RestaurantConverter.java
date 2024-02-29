@@ -83,7 +83,7 @@ public class RestaurantConverter
                 .build();
     }
 
-    public RestaurantDtoWAlone restaurantToDtoWAlone (Restaurant r, User u)
+    public RestaurantDtoWAlone restaurantToDtoWAlone (Restaurant r)
     {
         return  RestaurantDtoWAlone
                 .builder()
