@@ -33,7 +33,7 @@ public class MenuController
         list = list.stream().filter(m -> m.getRestaurant().getId() == restaurantId).toList();
         return list.stream().findFirst().get();
     }
-
+ // s
     @GetMapping("/menu")
     public List<MenuDtoWFull> getAllRestaurants() 
     {
