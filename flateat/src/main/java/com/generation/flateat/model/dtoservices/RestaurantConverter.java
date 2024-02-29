@@ -63,7 +63,7 @@ public class RestaurantConverter
                 .build();
     }
 
-    public RestaurantDtoWAlone restaurantToDtoWAlone (Restaurant r, User u)
+    public RestaurantDtoWAlone restaurantToDtoWAlone (Restaurant r)
     {
         return  RestaurantDtoWAlone
                 .builder()
@@ -72,7 +72,6 @@ public class RestaurantConverter
                 .foodTypes(r.getFoodTypes())
                 .imgUrl(r.getImgUrl())
                 .isOpen(isOpenRest(r))
-                .distance(calcDist(r, u))
                 .build();
     }
 
@@ -80,7 +79,10 @@ public class RestaurantConverter
     {
         int currentHour = LocalTime.now().getHour();
 
-        return currentHour >= r.getOpeningHour() && currentHour < r.getClosingHour();
+        if(currentHour >= r.getOpeningHour() && currentHour < r.getClosingHour())
+            return true;
+
+        return false;
     }
 
     public int calcDist(Restaurant r, User user) 

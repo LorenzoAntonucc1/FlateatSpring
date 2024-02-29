@@ -29,7 +29,7 @@ public class RestaurantController
     @GetMapping("/restaurants/{id}")
     public RestaurantDtoWAlone getAllRestaurantById(@PathVariable Integer id) 
     {
-        return  conv.restaurantToDtoWAlone(repo.findById(id).get(), uRepo.findById(id).get());
+        return  conv.restaurantToDtoWAlone(repo.findById(id).get());
     }
 
     @GetMapping("/restaurants")
@@ -40,6 +40,8 @@ public class RestaurantController
                .map(e -> conv.restaurantToDtoWNoUser(e))
                .toList();
     }
+
+    
     
 
     // @GetMapping("/restaurant/search")
