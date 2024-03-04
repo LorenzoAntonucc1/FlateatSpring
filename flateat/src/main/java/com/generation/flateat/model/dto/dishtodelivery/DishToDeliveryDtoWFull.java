@@ -19,4 +19,5 @@ public class DishToDeliveryDtoWFull extends DishToDeliveryDtoR
     private Dish dish;
     private Delivery delivery;
 
+    
 }
