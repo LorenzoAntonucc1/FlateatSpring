@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.generation.flateat.model.dto.dishtodelivery.DishToDeliveryDtoRPost;
 import com.generation.flateat.model.dto.dishtodelivery.DishToDeliveryDtoWFull;
 import com.generation.flateat.model.dtoservices.DishToDeliveryConverter;
 import com.generation.flateat.model.entities.DishToDelivery;
@@ -44,12 +45,13 @@ public class DishToDeliveryController {
         return conv.DtoRToDishToDelivery(repo.findById(id).get());
     }
 
-    // @PostMapping("/{id}}")
-    // public DishToDeliveryDtoWFull addDishToDelivery(@RequestBody DishToDeliveryDtoWFull dishToDeliveryDto) 
-    // {
-    //     DishToDelivery dishToDelivery = conv.dtoFullToDishToDelivery(dishToDeliveryDto);
-    //     return conv.dishToDeliveryToDtoFull(repo.save(dishToDelivery));
-    // }
+    @PostMapping
+    public DishToDelivery addDishToDelivery(@RequestBody DishToDeliveryDtoRPost dishToDeliveryDto) 
+    {
+        DishToDelivery dishToDelivery = conv.dishToDeliveryToPostToDelivery(dishToDeliveryDto);
+        dishToDelivery = repo.save(dishToDelivery);
+        return dishToDelivery;
+    }
 
     // @PutMapping("/{id}")
     // public DishToDeliveryDtoWFull updateDishToDelivery(@PathVariable Integer id, @RequestBody DishToDeliveryDtoWFull dishToDeliveryDto) 

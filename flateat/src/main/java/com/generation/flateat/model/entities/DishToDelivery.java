@@ -39,5 +39,6 @@ public class DishToDelivery
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "delivery_id")
     private Delivery delivery;
+    
 
 }

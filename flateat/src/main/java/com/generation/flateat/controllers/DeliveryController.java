@@ -50,7 +50,7 @@ public class DeliveryController
     public Delivery postDelivery(@RequestBody DeliveryDtoR dto)
     {
         Delivery delivery = conv.dtoRToDelivery(dto);
-        return delivery;
+        return repo.save(delivery);
     }
 }
 

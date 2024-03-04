@@ -9,9 +9,8 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder
 @AllArgsConstructor
-public class DishToDeliveryDtoR extends DishToDeliveryDtoBase 
+public class DishToDeliveryDtoRPost extends DishToDeliveryDtoR
 {
-    public DishToDeliveryDtoR(){};
-    private Integer id;
-    private int quantity;
+    private Integer dish_id;
+    private Integer delivery_id;
 }

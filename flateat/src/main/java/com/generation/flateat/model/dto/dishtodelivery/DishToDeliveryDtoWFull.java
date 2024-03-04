@@ -12,12 +12,11 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @NoArgsConstructor
 @SuperBuilder
-public class DishToDeliveryDtoWFull extends DishToDeliveryDtoR 
+public class DishToDeliveryDtoWFull extends DishToDeliveryDtoBase
 {
-    private Integer id;   
     private double price;
     private Dish dish;
     private Delivery delivery;
 
-    
+    private Integer id;
 }
