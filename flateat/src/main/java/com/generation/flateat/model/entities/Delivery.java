@@ -51,4 +51,6 @@ public class Delivery
     @OneToMany(mappedBy = "delivery",cascade = CascadeType.REMOVE,fetch = FetchType.EAGER)
     private Set <DishToDelivery> dishesDeliveries;
 
+    //Id delivery, Id piatti, quantità
+    //Una delivery -> N DishToDelivery      1 DishToDelivery -> N Dish
 }
