@@ -59,4 +59,8 @@ public class Restaurant
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "menu_id")
     private Menu menu;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "restaurantOfReview",fetch = FetchType.EAGER)
+    private Set<Review> reviews;
 }
