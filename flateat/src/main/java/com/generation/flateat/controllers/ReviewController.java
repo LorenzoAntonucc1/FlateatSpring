@@ -1,6 +1,7 @@
 package com.generation.flateat.controllers;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.generation.flateat.model.dto.review.ReviewDtoBase;
 import com.generation.flateat.model.dto.review.ReviewDtoRPost;
 import com.generation.flateat.model.dtoservices.ReviewConverter;
+import com.generation.flateat.model.entities.Restaurant;
 import com.generation.flateat.model.entities.Review;
 import com.generation.flateat.model.repositories.RestaurantRepository;
 import com.generation.flateat.model.repositories.ReviewRepository;
@@ -42,9 +44,12 @@ public class ReviewController
     @GetMapping("/reviews/{restaurantId}")
     public List<Review> getReviewsByRestaurant(@PathVariable Integer restaurantId)
     {
-        List<Review> list = reviewRepo.findAll().stream().map(e -> conv.dtoToReview(e)).toList();
-        list = list.stream().filter(r -> r.getRestaurantOfReview().getId() == restaurantId).toList();
-        return list;
+        Restaurant r = restaurantRepo.findById(restaurantId).get();
+        Set<Review> list =  r.getReviews();
+        return list.stream().toList();
+        // List<Review> list = reviewRepo.findAll().stream().map(e -> conv.dtoToReview(e)).toList();
+        // list = list.stream().filter(r -> r.getRestaurantOfReview().getId() == restaurantId).toList();
+        // return list;
     }
 
     @PostMapping("/reviews")

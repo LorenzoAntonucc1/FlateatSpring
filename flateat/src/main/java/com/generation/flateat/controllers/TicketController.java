@@ -1,6 +1,7 @@
 package com.generation.flateat.controllers;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,7 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.generation.flateat.model.dto.ticket.TicketDtoRPost;
 import com.generation.flateat.model.dtoservices.TicketConverter;
 import com.generation.flateat.model.entities.Ticket;
+import com.generation.flateat.model.entities.User;
 import com.generation.flateat.model.repositories.TicketRepository;
+import com.generation.flateat.model.repositories.UserRepository;
 
 @RestController
 public class TicketController 
@@ -25,6 +28,9 @@ public class TicketController
     @Autowired
     TicketConverter conv;
 
+    @Autowired
+    UserRepository uRepo;
+
     @GetMapping("/tickets")
     public List<TicketDtoRPost> getAllTickets()
     {
@@ -32,6 +38,14 @@ public class TicketController
                 .stream()
                 .map(e -> conv.ticketToDtoR(e))
                 .toList();
+    }
+
+    @GetMapping("/tickets/{userId}")
+    public List<TicketDtoRPost> getUserTickets(@PathVariable Integer userId)
+    {
+        User u = uRepo.findById(userId).get();
+        List<TicketDtoRPost> setTicket = u.getTickets().stream().map(e -> conv.ticketToDtoR(e)).toList();
+        return setTicket;
     }
 
     @PostMapping("/tickets")
