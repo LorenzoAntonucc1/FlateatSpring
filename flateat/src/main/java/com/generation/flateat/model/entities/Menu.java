@@ -4,6 +4,7 @@ import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -24,16 +25,18 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-
+@Schema(description = "Object Menu | 1 - 1 Restaurant | 1 - N Dish")
 public class Menu 
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Schema(description = "Primary Key | > 0")
     private Integer id;
 
     @JsonIgnore
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "restaurant_id")
+    @Schema(description = "Foreign Key | restaurant_id")
     private Restaurant restaurant;
 
     @JsonIgnore

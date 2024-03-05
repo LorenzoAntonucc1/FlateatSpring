@@ -1,16 +1,28 @@
 package com.generation.flateat.model.dtoservices;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.generation.flateat.model.dto.dishtodelivery.DishToDeliveryDtoR;
+import com.generation.flateat.model.dto.dishtodelivery.DishToDeliveryDtoRPost;
 import com.generation.flateat.model.dto.dishtodelivery.DishToDeliveryDtoWFull;
+import com.generation.flateat.model.entities.Delivery;
+import com.generation.flateat.model.entities.Dish;
 import com.generation.flateat.model.entities.DishToDelivery;
+import com.generation.flateat.model.repositories.DeliveryRepository;
+import com.generation.flateat.model.repositories.DishRepository;
 
 
 @Service
 public class DishToDeliveryConverter 
 {
+    @Autowired
+    DishRepository dRepo;
+
+    @Autowired
+    DeliveryRepository deliveryRepo;
+
     private double getPrice(DishToDelivery dishes)
     {
         double res = 0;
@@ -72,13 +84,27 @@ public class DishToDeliveryConverter
 
     public DishToDeliveryDtoWFull DtoRToDishToDelivery (DishToDelivery dd)
     {
+        Dish d = dRepo.findById(dd.getDish().getId()).get();
         return  DishToDeliveryDtoWFull
                 .builder()
                 .quantity(dd.getQuantity())
                 .id(dd.getId())
-                .dish(dd.getDish())
+                .dish(d)
                 .delivery(dd.getDelivery())
                 .price(getPrice(dd))
+                .build();
+    }
+
+    public DishToDelivery dishToDeliveryToPostToDelivery(DishToDeliveryDtoRPost dd)
+    {
+        Dish d = dRepo.findById(dd.getDish_id()).get();
+        Delivery delivery = deliveryRepo.findById(dd.getDelivery_id()).get();
+
+        return  DishToDelivery
+                .builder()
+                .quantity(dd.getQuantity())
+                .dish((d))
+                .delivery(delivery)
                 .build();
     }
 }

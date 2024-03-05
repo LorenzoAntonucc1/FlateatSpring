@@ -1,6 +1,5 @@
 package com.generation.flateat.model.entities;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -23,28 +22,20 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Schema(description = "Object DishToDelivery | N - 1 Dish/Delivery")
-public class DishToDelivery 
+@Schema(description = "Object Reply | 1 - N Ticket (SpecialUser)")
+public class Reply 
 {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Schema(description = "Primary Key | > 0")
-    private Integer id; 
-    @Schema(description = "How many Dish with same ID")
-    private int quantity;
+    private Integer id;
+
+    @Schema(description = "SpecialUser reply to ticket")
+    private String text;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "dish_id")
-    @Schema(description = "Foreign Key | dish_id")
-    private Dish dish;
-    
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "delivery_id")
-    @Schema(description = "Foreign Key | delivery_id")
-    private Delivery delivery;
-    
-
+    @JoinColumn(name = "ticket_id")
+    @Schema(description = "Foreign Key | ticket_id")
+    private Ticket ticket;
 }
