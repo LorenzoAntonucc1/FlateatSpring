@@ -57,7 +57,7 @@ public class RestaurantController
     })
     public ResponseEntity<?> getAllRestaurantById(@PathVariable Integer id) 
     {
-        RestaurantDtoWAlone restaurant = conv.restaurantToDtoWAlone(repo.findById(id).get(), uRepo.findById(id).get())
+        RestaurantDtoWAlone restaurant = conv.restaurantToDtoWAlone(repo.findById(id).get());
         if(restaurant!=null)
         return new ResponseEntity<RestaurantDtoWAlone>(restaurant,HttpStatus.OK);
         
