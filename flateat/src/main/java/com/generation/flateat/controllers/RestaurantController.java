@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.generation.flateat.model.dto.dish.DishDtoWFull;
+import com.generation.flateat.model.dto.restaurant.RestaurantDtoFullNoUser;
 import com.generation.flateat.model.dto.restaurant.RestaurantDtoWAlone;
 import com.generation.flateat.model.dto.restaurant.RestaurantDtoWFull;
 import com.generation.flateat.model.dto.restaurant.RestaurantDtoWFullAverage;
@@ -130,6 +131,18 @@ public class RestaurantController
     //     return new ResponseEntity<String>("User or Restaurant not found",HttpStatus.NOT_FOUND);
     // }
 
+    @GetMapping("/restaurant/nouser")
+    @Operation(description = "All Restaurants without info about distance (User not logged)")
+    public List<RestaurantDtoFullNoUser> getRestWNoUser()
+    {
+        List<RestaurantDtoFullNoUser> list = repo.findAll()
+        .stream()
+        .map(e -> conv.fullRestaurantNoUser(e))
+        .toList();
+        if(list.size()!=0)
+        return list;
+        return null;
+    }
 
     @GetMapping("/restaurant/{restaurantId}/{userId}")
     public ResponseEntity<?> getReviews(@PathVariable Integer restaurantId, @PathVariable Integer userId) 
