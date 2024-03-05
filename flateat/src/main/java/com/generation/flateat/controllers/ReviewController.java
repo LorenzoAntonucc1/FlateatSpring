@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.generation.flateat.model.dto.menu.MenuDtoWFull;
 import com.generation.flateat.model.dto.review.ReviewDtoBase;
 import com.generation.flateat.model.dto.review.ReviewDtoRPost;
 import com.generation.flateat.model.dtoservices.ReviewConverter;
