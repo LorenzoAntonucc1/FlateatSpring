@@ -2,6 +2,7 @@ package com.generation.flateat.model.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -21,16 +22,20 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Schema(description = "Object Ticket | 1 - N User")
 public class Ticket 
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Schema(description = "Primary Key | > 0")
     private Integer id;
 
+    @Schema(description = "Ticket accurate description (for SuperUser, from User)")
     private String text;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
+    @Schema(description = "Foreign Key | user_id")
     private User userOfTicket;
 }

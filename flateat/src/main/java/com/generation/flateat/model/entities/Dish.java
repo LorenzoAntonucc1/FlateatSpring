@@ -5,6 +5,7 @@ import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
@@ -29,14 +30,19 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Schema(description = "Object Dish | 1-N Menu ")
 public class Dish 
 {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Schema(description = "Primary Key | > 0")
     private Integer id;    
+    @Schema(description = "Name and a way to recognize the Dish")
     private String name;
+    @Schema(description = "Dish Category - Main|Appetizer|Desserts|Ecc.")
     private String category;
+    @Schema(description = "Dish price")
     private double price;
     //Tipo da leggere
     @ElementCollection(targetClass = String.class, fetch = FetchType.LAZY) 
@@ -53,6 +59,7 @@ public class Dish
     @JsonIgnore
     @JoinColumn(name = "menu_id")
     @ManyToOne(fetch = FetchType.EAGER)
+    @Schema(description = "Foreign Key | Menu_id")
     private Menu menu;
 
 }
