@@ -1,6 +1,7 @@
 package com.generation.flateat.model.dtoservices;
 
 import java.time.LocalTime;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,8 +9,10 @@ import org.springframework.stereotype.Service;
 import com.generation.flateat.model.dto.restaurant.RestaurantDtoR;
 import com.generation.flateat.model.dto.restaurant.RestaurantDtoWAlone;
 import com.generation.flateat.model.dto.restaurant.RestaurantDtoWFull;
+import com.generation.flateat.model.dto.restaurant.RestaurantDtoWFullAverage;
 import com.generation.flateat.model.dto.restaurant.RestaurantDtoWNoUser;
 import com.generation.flateat.model.entities.Restaurant;
+import com.generation.flateat.model.entities.Review;
 import com.generation.flateat.model.entities.User;
 import com.generation.flateat.model.repositories.UserRepository;
 
@@ -45,7 +48,7 @@ public class RestaurantConverter
                 .build();
     }
 
-    public RestaurantDtoWFull restaurantToDtoWFull(Restaurant r, User u)
+    public RestaurantDtoWFull restaurantToDtoWFull(Restaurant r, User u) //HIM
     {
         return  RestaurantDtoWFull
                 .builder()
@@ -61,6 +64,39 @@ public class RestaurantConverter
                 .maxDeliveryDistance(r.getMaxDeliveryDistance())
                 .deliveryPricePerUnit(r.getDeliveryPricePerUnit())
                 .build();
+    }
+
+    public RestaurantDtoWFullAverage restaurantToDtoWFullAverage(Restaurant r, User u)
+    {
+        return  RestaurantDtoWFullAverage
+                .builder()
+                .id(r.getId())
+                .name(r.getName())
+                .imgUrl(r.getImgUrl())
+                .openingH(r.getOpeningHour())
+                .closingH(r.getClosingHour())
+                .phone(r.getPhone())
+                .foodTypes(r.getFoodTypes())
+                .isOpen(isOpenRest(r))
+                .distance(calcDist(r, u))
+                .maxDeliveryDistance(r.getMaxDeliveryDistance())
+                .deliveryPricePerUnit(r.getDeliveryPricePerUnit())
+                .average(calcAverage(r.getReviews()))
+                .build();
+    }
+
+    private int calcAverage(Set<Review> reviews) 
+    {
+        for(Review r : reviews)
+            System.out.println(r.getVote());
+        if (reviews.isEmpty())
+            return 0;
+        
+        int res = 0;
+        for (Review review : reviews)
+            res += review.getVote();
+    
+        return (int) (res / reviews.size());
     }
 
     public RestaurantDtoWFull restaurantFullWithUser(Restaurant r, Integer id)

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.generation.flateat.model.dto.dish.DishDtoWFull;
 import com.generation.flateat.model.dto.restaurant.RestaurantDtoWAlone;
 import com.generation.flateat.model.dto.restaurant.RestaurantDtoWFull;
+import com.generation.flateat.model.dto.restaurant.RestaurantDtoWFullAverage;
 import com.generation.flateat.model.dto.restaurant.RestaurantDtoWNoUser;
 import com.generation.flateat.model.dtoservices.RestaurantConverter;
 import com.generation.flateat.model.entities.Dish;
@@ -93,39 +94,49 @@ public class RestaurantController
     })
     public ResponseEntity<?> getAllRestaurantWithUserLogged(@PathVariable Integer id)
     {
-        List<RestaurantDtoWFull> list = repo.findAll()
+        List<RestaurantDtoWFullAverage> list = repo.findAll()
         .stream()
-        .map(e -> conv.restaurantFullWithUser(e, id))
+        .map(e -> conv.restaurantToDtoWFullAverage(e, uRepo.findById(id).get()))
         .toList();
         if(list.size()!=0)
-        return new ResponseEntity<List<RestaurantDtoWFull>>(list,HttpStatus.OK);
+        return new ResponseEntity<List<RestaurantDtoWFullAverage>>(list,HttpStatus.OK);
 
         return new ResponseEntity<String>("User|"+id+" not found",HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping("/restaurant/{restaurantId}/{userId}")
-    @Operation(description = "Returns a specific Restaurants and its distance from a specific User")
+    // @GetMapping("/restaurant/{restaurantId}/{userId}")
+    // @Operation(description = "Returns a specific Restaurants and its distance from a specific User")
+    // @ApiResponses(value = {
+    //     @ApiResponse
+    //     (
+    //         description = "Restaurant and User found",
+    //         responseCode = "200",
+    //         useReturnTypeSchema = true,
+    //         content = @Content(mediaType = "application/json", schema = @Schema(implementation = Restaurant.class))
+    //     ),
+    //     @ApiResponse
+    //     (
+    //         description = "Restaurant or User not found",
+    //         responseCode = "404",
+    //         content = @Content(mediaType = "text")
+    //     )
+    // })
+    // public ResponseEntity<?> getRestaurantByUserId(@PathVariable Integer restaurantId, @PathVariable Integer userId) 
+    // {
+    //     RestaurantDtoWFull rest = conv.restaurantToDtoWFull(repo.findById(restaurantId).get(), uRepo.findById(userId).get());
+    //     if(rest!=null)
+    //     return new ResponseEntity<RestaurantDtoWFull>(rest,HttpStatus.OK);
 
-    @ApiResponses(value = {
-        @ApiResponse
-        (
-            description = "Restaurant and User found",
-            responseCode = "200",
-            useReturnTypeSchema = true,
-            content = @Content(mediaType = "application/json", schema = @Schema(implementation = Restaurant.class))
-        ),
-        @ApiResponse
-        (
-            description = "Restaurant or User not found",
-            responseCode = "404",
-            content = @Content(mediaType = "text")
-        )
-    })
-    public ResponseEntity<?> getRestaurantByUserId(@PathVariable Integer restaurantId, @PathVariable Integer userId) 
+    //     return new ResponseEntity<String>("User or Restaurant not found",HttpStatus.NOT_FOUND);
+    // }
+
+
+    @GetMapping("/restaurant/{restaurantId}/{userId}")
+    public ResponseEntity<?> getReviews(@PathVariable Integer restaurantId, @PathVariable Integer userId) 
     {
-        RestaurantDtoWFull rest = conv.restaurantToDtoWFull(repo.findById(restaurantId).get(), uRepo.findById(userId).get());
+        RestaurantDtoWFullAverage rest = conv.restaurantToDtoWFullAverage(repo.findById(restaurantId).get(), uRepo.findById(userId).get());
         if(rest!=null)
-        return new ResponseEntity<RestaurantDtoWFull>(rest,HttpStatus.OK);
+        return new ResponseEntity<RestaurantDtoWFullAverage>(rest,HttpStatus.OK);
 
         return new ResponseEntity<String>("User or Restaurant not found",HttpStatus.NOT_FOUND);
     }
