@@ -56,10 +56,10 @@ public class TicketController
         return repo.findById(id).get().getReplies().stream().toList();
     }
 
-    @PostMapping("/tickets")
-    public Ticket readTicket(@RequestBody TicketDtoRPost dto)
+    @PostMapping("/tickets/{id}")
+    public Ticket readTicket(@RequestBody TicketDtoRPost dto, @PathVariable Integer id)
     {
-        return repo.save(conv.DtoRToTicket(dto));
+        return repo.save(conv.DtoRToTicket(dto, id));
     }
 
     @DeleteMapping("/tickets/{id}")

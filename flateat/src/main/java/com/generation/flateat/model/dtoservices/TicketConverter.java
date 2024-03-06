@@ -1,22 +1,26 @@
 package com.generation.flateat.model.dtoservices;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.generation.flateat.model.dto.ticket.TicketDtoBase;
 import com.generation.flateat.model.dto.ticket.TicketDtoRPost;
 import com.generation.flateat.model.entities.Ticket;
+import com.generation.flateat.model.repositories.UserRepository;
 
 @Service
 public class TicketConverter 
 {
+    @Autowired
+    UserRepository uRepo;
 
-    public Ticket DtoRToTicket (TicketDtoRPost dto)
+    public Ticket DtoRToTicket (TicketDtoRPost dto, int i)
     {
         return Ticket
             .builder()
             .text(dto.getText())
             .id(dto.getId())
-            .userOfTicket(dto.getUserOfTicket())
+            .userOfTicket(uRepo.findById(i).get())
             .build();
     }
 
