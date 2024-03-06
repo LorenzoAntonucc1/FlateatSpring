@@ -58,4 +58,11 @@ public class ReviewController
         Review review = conv.dtoToReview(r);
         return reviewRepo.save(review);
     }
+
+    @PostMapping("/reviews/{restaurantId}/{userId}")
+    public Review addFullReview(@RequestBody Review r, @PathVariable Integer restaurantId, @PathVariable Integer userId)
+    {
+        Review rev = conv.dtoToReviewFull(r, restaurantId, userId);
+        return reviewRepo.save(rev);
+    }
 }
