@@ -6,6 +6,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.generation.flateat.model.dto.restaurant.RestaurantDtoFullNoUser;
 import com.generation.flateat.model.dto.restaurant.RestaurantDtoR;
 import com.generation.flateat.model.dto.restaurant.RestaurantDtoWAlone;
 import com.generation.flateat.model.dto.restaurant.RestaurantDtoWFull;
@@ -63,6 +64,24 @@ public class RestaurantConverter
                 .distance(calcDist(r, u))
                 .maxDeliveryDistance(r.getMaxDeliveryDistance())
                 .deliveryPricePerUnit(r.getDeliveryPricePerUnit())
+                .build();
+    }
+
+    public RestaurantDtoFullNoUser fullRestaurantNoUser(Restaurant r)
+    {
+        return RestaurantDtoFullNoUser
+                .builder()
+                .id(r.getId())
+                .name(r.getName())
+                .imgUrl(r.getImgUrl())
+                .openingH(r.getOpeningHour())
+                .closingH(r.getClosingHour())
+                .phone(r.getPhone())
+                .foodTypes(r.getFoodTypes())
+                .isOpen(isOpenRest(r))
+                .maxDeliveryDistance(r.getMaxDeliveryDistance())
+                .deliveryPricePerUnit(r.getDeliveryPricePerUnit())
+                .average(calcAverage(r.getReviews()))
                 .build();
     }
 
