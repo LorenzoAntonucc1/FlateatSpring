@@ -14,12 +14,16 @@ import com.generation.flateat.model.dto.reply.ReplyDtoRPost;
 import com.generation.flateat.model.dtoservices.ReplyConverter;
 import com.generation.flateat.model.entities.Reply;
 import com.generation.flateat.model.repositories.ReplyRepository;
+import com.generation.flateat.model.repositories.UserRepository;
 
 @RestController
 public class ReplyController 
 {
     @Autowired
     ReplyRepository repo;
+
+    @Autowired
+    UserRepository uRepo;
 
     @Autowired
     ReplyConverter conv;
