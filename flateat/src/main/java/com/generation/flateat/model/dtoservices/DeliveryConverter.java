@@ -1,5 +1,6 @@
 package com.generation.flateat.model.dtoservices;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.generation.flateat.model.dto.delivery.DeliveryDtoWFull;
@@ -7,11 +8,19 @@ import com.generation.flateat.model.dto.delivery.DeliveryDtoWNoTotalPrice;
 import com.generation.flateat.model.dto.delivery.DeliveryDtoR;
 import com.generation.flateat.model.entities.Delivery;
 import com.generation.flateat.model.entities.DishToDelivery;
+import com.generation.flateat.model.repositories.RestaurantRepository;
+import com.generation.flateat.model.repositories.UserRepository;
 
 
 @Service
 public class DeliveryConverter 
 {
+    @Autowired
+    UserRepository uRepo;
+
+    @Autowired
+    RestaurantRepository rRepo;
+
     public Delivery dtoRToDelivery(DeliveryDtoR dto)//R
     {
         return  Delivery
@@ -39,6 +48,20 @@ public class DeliveryConverter
                 .dishesPrice(calcDishesPrice(d))
                 .riderRevenue(calcRiderRevenue(calcDishesPrice(d)))
                 .totalPrice(calcTotalPrice(calcDishesPrice(d), d))
+                .build();
+    }
+
+    public Delivery delivToDto(Delivery d, Integer restaurantId, Integer userId)
+    {
+        return Delivery
+                .builder()
+                .expected_arrival(d.getExpected_arrival())
+                .distance(d.getDistance())
+                .user(uRepo.findById(userId).get())
+                .restaurant(rRepo.findById(restaurantId).get())
+                .paymentMethod(d.getPaymentMethod())
+                .id(d.getId())
+                .notes(d.getNotes())
                 .build();
     }
 

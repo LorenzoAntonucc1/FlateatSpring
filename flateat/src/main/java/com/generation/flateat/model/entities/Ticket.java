@@ -1,5 +1,7 @@
 package com.generation.flateat.model.entities;
 
+import java.util.Set;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -10,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -38,4 +41,8 @@ public class Ticket
     @JoinColumn(name = "user_id")
     @Schema(description = "Foreign Key | user_id")
     private User userOfTicket;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "ticket",fetch = FetchType.EAGER)
+    private Set<Reply> replies;
 }

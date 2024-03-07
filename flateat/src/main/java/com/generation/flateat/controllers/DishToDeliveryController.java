@@ -45,12 +45,10 @@ public class DishToDeliveryController {
         return conv.DtoRToDishToDelivery(repo.findById(id).get());
     }
 
-    @PostMapping
-    public DishToDelivery addDishToDelivery(@RequestBody DishToDeliveryDtoRPost dishToDeliveryDto) 
+    @PostMapping("/{dishId}/{deliveryId}")
+    public DishToDelivery addDishToDelivery(@RequestBody DishToDelivery dtd, @PathVariable Integer dishId, @PathVariable Integer deliveryId) 
     {
-        DishToDelivery dishToDelivery = conv.dishToDeliveryToPostToDelivery(dishToDeliveryDto);
-        dishToDelivery = repo.save(dishToDelivery);
-        return dishToDelivery;
+        return repo.save(conv.saveDTD(dtd, dishId, deliveryId));
     }
 
     // @PutMapping("/{id}")

@@ -52,5 +52,11 @@ public class DeliveryController
         Delivery delivery = conv.dtoRToDelivery(dto);
         return repo.save(delivery);
     }
+
+    @PostMapping("/delivery/{restaurantId}/{userId}")
+    public Delivery saveDelivery(@PathVariable Integer restaurantId, @PathVariable Integer userId, @RequestBody Delivery dto)
+    {
+        return repo.save(conv.delivToDto(dto, restaurantId, userId));
+    }
 }
 

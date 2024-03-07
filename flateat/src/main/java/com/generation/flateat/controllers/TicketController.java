@@ -1,8 +1,8 @@
 package com.generation.flateat.controllers;
 
 import java.util.List;
-import java.util.Set;
 
+import org.hibernate.mapping.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.generation.flateat.model.dto.ticket.TicketDtoBase;
 import com.generation.flateat.model.dto.ticket.TicketDtoRPost;
 import com.generation.flateat.model.dtoservices.TicketConverter;
+import com.generation.flateat.model.entities.Reply;
 import com.generation.flateat.model.entities.Ticket;
 import com.generation.flateat.model.entities.User;
 import com.generation.flateat.model.repositories.TicketRepository;
@@ -32,11 +34,11 @@ public class TicketController
     UserRepository uRepo;
 
     @GetMapping("/tickets")
-    public List<TicketDtoRPost> getAllTickets()
+    public List<TicketDtoBase> getAllTickets()
     {
         return repo.findAll()
                 .stream()
-                .map(e -> conv.ticketToDtoR(e))
+                .map(e -> conv.toDtoBase(e))
                 .toList();
     }
 
@@ -48,10 +50,16 @@ public class TicketController
         return setTicket;
     }
 
-    @PostMapping("/tickets")
-    public Ticket readTicket(@RequestBody TicketDtoRPost dto)
+    @GetMapping("/tickets/my/{id}")
+    public List<Reply> getMyReply(@PathVariable Integer id)
     {
-        return repo.save(conv.DtoRToTicket(dto));
+        return repo.findById(id).get().getReplies().stream().toList();
+    }
+
+    @PostMapping("/tickets/{id}")
+    public Ticket readTicket(@RequestBody TicketDtoRPost dto, @PathVariable Integer id)
+    {
+        return repo.save(conv.DtoRToTicket(dto, id));
     }
 
     @DeleteMapping("/tickets/{id}")

@@ -82,6 +82,17 @@ public class DishToDeliveryConverter
                 .build();
     }
 
+    public DishToDelivery saveDTD(DishToDelivery d, Integer dishId, Integer deliveryId)
+    {
+        return  DishToDelivery
+                .builder()
+                .quantity(d.getQuantity())
+                .id(d.getId())
+                .delivery(deliveryRepo.findById(deliveryId).get())
+                .dish(dRepo.findById(dishId).get())
+                .build();
+    }
+
     public DishToDeliveryDtoWFull DtoRToDishToDelivery (DishToDelivery dd)
     {
         Dish d = dRepo.findById(dd.getDish().getId()).get();
