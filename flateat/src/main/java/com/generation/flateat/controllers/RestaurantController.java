@@ -57,6 +57,7 @@ public class RestaurantController
             content = @Content(mediaType = "text")
         )
     })
+    
     public ResponseEntity<?> getAllRestaurantById(@PathVariable Integer id) 
     {
         RestaurantDtoWAlone restaurant = conv.restaurantToDtoWAlone(repo.findById(id).get());
