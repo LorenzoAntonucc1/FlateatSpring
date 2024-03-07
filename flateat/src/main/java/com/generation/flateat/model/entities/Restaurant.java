@@ -35,8 +35,9 @@ public class Restaurant
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Schema(description = "Primary Key | > 0")
     private Integer id;
-    @Schema(description = "Funny names not created by AIs")
+    @Schema(description = "Restaurant Sign")
     private String name;
+    @Schema(description = "Restaurant Phone number")
     private String phone;
     @Schema(description = "Opening hour of the Restaurant")
     private int openingHour;
@@ -52,12 +53,13 @@ public class Restaurant
     //Nome tabella
     @CollectionTable(name = "foodTypes", joinColumns = @JoinColumn(name = "restaurant_id")) 
     //Nome proprietà
-    @Column(name = "foodType", nullable = false)             
+    @Column(name = "foodType", nullable = false)     
+    @Schema(description = "What is offered, Appetizer|Drink|Dessert")        
     private List <String> foodTypes;
 
     @Schema(description = "Delivery price calculated by distance*deliveryPricePerUnit")
     private double deliveryPricePerUnit;
-    @Schema(description = "Even Restaurants in Flatlandia has limits")
+    @Schema(description = "Restaurants in Flatland can deliver only within certain ranges")
     private int maxDeliveryDistance;
     @Schema(description = "Restaurant Image")
     private String imgUrl;
