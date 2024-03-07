@@ -1,5 +1,7 @@
 package com.generation.flateat.model.dto.review;
 
+import com.generation.flateat.model.entities.User;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
@@ -10,4 +12,5 @@ import lombok.experimental.SuperBuilder;
 public class ReviewDtoRPost extends ReviewDtoBase
 {
     public ReviewDtoRPost(){}
+    private User userOfReview;
 }
