@@ -18,6 +18,8 @@ import com.generation.flateat.model.entities.Review;
 import com.generation.flateat.model.repositories.RestaurantRepository;
 import com.generation.flateat.model.repositories.ReviewRepository;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 @RestController
 public class ReviewController 
 {
@@ -42,6 +44,7 @@ public class ReviewController
     }
     
     @GetMapping("/reviews/{restaurantId}")
+    @Operation(description = "Returns all Reviews of a specific Restaurant")
     public List<Review> getReviewsByRestaurant(@PathVariable Integer restaurantId)
     {
         Restaurant r = restaurantRepo.findById(restaurantId).get();
@@ -60,6 +63,7 @@ public class ReviewController
     }
 
     @PostMapping("/reviews/{restaurantId}/{userId}")
+    @Operation(description =  ("Allows a User to post a Review -> will be linked to Restaurant-User"))
     public Review addFullReview(@RequestBody Review r, @PathVariable Integer restaurantId, @PathVariable Integer userId)
     {
         Review rev = conv.dtoToReviewFull(r, restaurantId, userId);

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.generation.flateat.model.dto.delivery.DeliveryDtoR;
 import com.generation.flateat.model.dto.delivery.DeliveryDtoWFull;
 import com.generation.flateat.model.dto.delivery.DeliveryDtoWNoTotalPrice;
+import com.generation.flateat.model.dto.delivery.DeliveryToString;
 import com.generation.flateat.model.dtoservices.DeliveryConverter;
 import com.generation.flateat.model.entities.Delivery;
 import com.generation.flateat.model.repositories.DeliveryRepository;
@@ -54,7 +55,7 @@ public class DeliveryController
     }
 
     @PostMapping("/delivery/{restaurantId}/{userId}")
-    public Delivery saveDelivery(@PathVariable Integer restaurantId, @PathVariable Integer userId, @RequestBody Delivery dto)
+    public Delivery saveDelivery(@PathVariable Integer restaurantId, @PathVariable Integer userId, @RequestBody DeliveryToString dto)
     {
         return repo.save(conv.delivToDto(dto, restaurantId, userId));
     }

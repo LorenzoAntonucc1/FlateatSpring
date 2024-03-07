@@ -145,12 +145,13 @@ public class RestaurantController
     }
 
     @GetMapping("/restaurant/{restaurantId}/{userId}")
+    @Operation(description = "Returns all Reviews of a specific Restaurant | Works with ReviewController")
     public ResponseEntity<?> getReviews(@PathVariable Integer restaurantId, @PathVariable Integer userId) 
     {
         RestaurantDtoWFullAverage rest = conv.restaurantToDtoWFullAverage(repo.findById(restaurantId).get(), uRepo.findById(userId).get());
         if(rest!=null)
         return new ResponseEntity<RestaurantDtoWFullAverage>(rest,HttpStatus.OK);
 
-        return new ResponseEntity<String>("User or Restaurant not found",HttpStatus.NOT_FOUND);
+        return new ResponseEntity<String>("Restaurant not found",HttpStatus.NOT_FOUND);
     }
 }

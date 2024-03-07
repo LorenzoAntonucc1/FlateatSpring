@@ -1,10 +1,13 @@
 package com.generation.flateat.model.dtoservices;
 
+import java.time.LocalDateTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.generation.flateat.model.dto.delivery.DeliveryDtoWFull;
 import com.generation.flateat.model.dto.delivery.DeliveryDtoWNoTotalPrice;
+import com.generation.flateat.model.dto.delivery.DeliveryToString;
 import com.generation.flateat.model.dto.delivery.DeliveryDtoR;
 import com.generation.flateat.model.entities.Delivery;
 import com.generation.flateat.model.entities.DishToDelivery;
@@ -51,11 +54,11 @@ public class DeliveryConverter
                 .build();
     }
 
-    public Delivery delivToDto(Delivery d, Integer restaurantId, Integer userId)
+    public Delivery delivToDto(DeliveryToString d, Integer restaurantId, Integer userId)
     {
         return Delivery
                 .builder()
-                .expected_arrival(d.getExpected_arrival())
+                .expected_arrival(swap(d.getExpected_arrival()))
                 .distance(d.getDistance())
                 .user(uRepo.findById(userId).get())
                 .restaurant(rRepo.findById(restaurantId).get())
@@ -63,6 +66,14 @@ public class DeliveryConverter
                 .id(d.getId())
                 .notes(d.getNotes())
                 .build();
+    }
+
+    public LocalDateTime swap(String date)
+    {
+        LocalDateTime res = LocalDateTime.now();
+        String[] split = date.split(":");
+        res = res.withHour(Integer.parseInt(split[0])).withMinute(Integer.parseInt(split[1]));
+        return res;
     }
 
     public DeliveryDtoWNoTotalPrice DeliveryToDtoWNoTotalPrice(Delivery d) 
